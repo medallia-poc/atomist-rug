@@ -8,7 +8,7 @@ declare Pkg=publish-to-team
 declare Version=0.1.0
 
 function msg () {
-    echo "$Pkg: $*"
+    echo " $(whoami) $(hostname) $Pkg: $*"
 }
 
 function err () {
