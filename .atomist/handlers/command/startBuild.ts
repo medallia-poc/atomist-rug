@@ -40,7 +40,7 @@ class startBuild implements HandleCommand {
         return plan;
     }
 }
-export const startBuild = new startBuild();
+export const startBuildCommand = new startBuild();
 
 @ResponseHandler("TriggerBuild results",
     "Shows results of triggered jobUrl")
