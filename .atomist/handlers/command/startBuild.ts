@@ -27,7 +27,7 @@ class startBuild implements HandleCommand {
                 name: "http",
                 parameters: {
                     method: "post",
-                    url: encodeURI('http://fowler:3c3cee388d6cd8a8d31888bf46a4f9cb@' + this.jobUrl + '/buildWithParameters'),
+                    url: encodeURI(this.jobUrl + '/buildWithParameters'),
                     config : '{"key1":"value1","key2":"value2"}',
                 },
             },
