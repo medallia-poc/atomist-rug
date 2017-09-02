@@ -20,8 +20,10 @@ export class StartBuild implements HandleCommand {
         required: false,
     })
     public jobUrl: string = "default value";
-
+    
     public handle(context: HandlerContext): CommandPlan {
+        const jenkinsUrl = `http://ec2-13-58-28-0.us-east-2.compute.amazonaws.com:8080/job/`
+        const postUrl = `/builditharameters`
         const plan = new CommandPlan();
         plan.add(
         {
@@ -29,8 +31,8 @@ export class StartBuild implements HandleCommand {
                 kind: "execute",
                 name: "http",
                 parameters: {
-                    url: this.jobUrl,
-                    method: "post"
+                    url: jenkinsUrl + this.jobUrl + postUrl,
+                    method: "get"
                 }
             },
             onSuccess: new DirectedMessage("Woot!", new ChannelAddress("#random")),
