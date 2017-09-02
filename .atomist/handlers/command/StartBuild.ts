@@ -1,5 +1,5 @@
 import { CommandHandler, Intent, Parameter, Tags } from "@atomist/rug/operations/Decorators";
-import { ChannelAddress, DirectMessage, CommandPlan, HandleCommand, HandlerContext, ResponseMessage } from "@atomist/rug/operations/Handlers";
+import { ChannelAddress, DirectedMessage, CommandPlan, HandleCommand, HandlerContext, ResponseMessage } from "@atomist/rug/operations/Handlers";
 import { Pattern } from "@atomist/rug/operations/RugOperation";
 
 /**
@@ -38,11 +38,11 @@ export class StartBuild implements HandleCommand {
                     }
                 }
             },
-            onSuccess: new DirectMessage("Woot!", new ChannelAddress("#random")),
-            onError: new DirectMessage("Un oh", new ChannelAddress("#random"))
+            onSuccess: new DirectedMessage("Woot!", new ChannelAddress("#random")),
+            onError: new DirectedMessage("Un oh", new ChannelAddress("#random"))
         });
         return plan;
     }
 }
 
-export const StartBuild = new StartBuild();
+export const startBuild = new StartBuild();
