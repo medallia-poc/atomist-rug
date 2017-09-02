@@ -30,12 +30,7 @@ export class StartBuild implements HandleCommand {
                 name: "http",
                 parameters: {
                     url: this.jobUrl,
-                    method: "post",
-                    config: {
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    }
+                    method: "post"
                 }
             },
             onSuccess: new DirectedMessage("Woot!", new ChannelAddress("#random")),
