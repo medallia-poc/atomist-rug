@@ -8,15 +8,16 @@ import {
 } from "@atomist/rug/operations/Handlers";
 import * as mustache from "mustache";
 
-const webSearchUrl = `http://stackoverflow.com/search?order=desc&sort=relevance&q=`;
+const buildApi = `/buildWithParameters`;
 
 @CommandHandler("startBuild", "start a Jenkins build")
-@Tags("stack-overflow")
+@Tags("jenkins-build")
 @Intent("start Jenkins build")
 class startBuild implements HandleCommand {
 
     @Parameter({ description: "job url", pattern: "^.*$" })
     public jobUrl: string;
+    
 
     public handle(ctx: HandlerContext): CommandPlan {
         const plan = new CommandPlan();
@@ -27,12 +28,12 @@ class startBuild implements HandleCommand {
                 name: "http",
                 parameters: {
                     method: "post",
-                    url: encodeURI(this.jobUrl + '/buildWithParameters'),
+                    url: encodeURI(this.jobUrl + buildApi),
                 },
             },
             onSuccess: {
                 kind: "respond",
-                name: "SendStackOverflowResults",
+                name: "TriggerBuildResults",
                 parameters: this,
             },
         });
@@ -41,7 +42,7 @@ class startBuild implements HandleCommand {
 }
 export const startBuildCommand = new startBuild();
 
-@ResponseHandler("TriggerBuild results",
+@ResponseHandler("TriggerBuildResults",
     "Shows results of triggered jobUrl")
 class jenkinsJobResponder implements HandleResponse<any> {
 
