@@ -1,39 +1,48 @@
-import {
-    CommandHandler, Intent, Parameter, ParseJson,
-    ResponseHandler, Tags,
-} from "@atomist/rug/operations/Decorators";
-import {
-    CommandPlan, HandleCommand, HandlerContext, HandleResponse,
-    MessageMimeTypes, Response, ResponseMessage,
-} from "@atomist/rug/operations/Handlers";
-import * as mustache from "mustache";
+import { CommandHandler, Intent, Parameter, Tags } from "@atomist/rug/operations/Decorators";
+import { CommandPlan, HandleCommand, HandlerContext, ResponseMessage } from "@atomist/rug/operations/Handlers";
 import { Pattern } from "@atomist/rug/operations/RugOperation";
 
-const buildApi = `/buildWithParameters`;
+/**
+ * A a sample Rug TypeScript command handler.
+ */
+@CommandHandler("MyFirstCommandHandler", "a sample Rug TypeScript command handler")
+@Tags("documentation")
+@Intent("run MyFirstCommandHandler")
+export class MyFirstCommandHandler implements HandleCommand {
 
-@CommandHandler("startBuild", "start a Jenkins build")
-@Tags("jenkins-build")
-@Intent("start Jenkins build")
-class startBuild implements HandleCommand {
+    @Parameter({
+        displayName: "Some Input",
+        description: "example of how to specify a parameter using decorators",
+        pattern: Pattern.any,
+        validInput: "a description of the valid input",
+        minLength: 1,
+        maxLength: 100,
+        required: false,
+    })
+    public jobUrl: string = "default value";
 
-    @Parameter({ description: "job url", pattern: Pattern.any, })
-    public jobUrl: string;
-    
-
-    public handle(ctx: HandlerContext): CommandPlan {
+    public handle(context: HandlerContext): CommandPlan {
         const plan = new CommandPlan();
-
-        plan.add({
+        plan.add(
+        {
             instruction: {
                 kind: "execute",
                 name: "http",
                 parameters: {
+                    url: jobUrl,
                     method: "post",
-                    url: encodeURI(this.jobUrl + buildApi),
-                },
+                    config: {
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }
+                }
             },
+            onSuccess: new DirectMessage("Woot!", new ChannelAddress("#random")),
+            onError: new DirectMessage("Un oh", new ChannelAddress("#random"))
         });
         return plan;
     }
 }
-export const startBuildCommand = new startBuild();
+
+export const myFirstCommandHandler = new MyFirstCommandHandler();
