@@ -5,10 +5,10 @@ import { Pattern } from "@atomist/rug/operations/RugOperation";
 /**
  * A a sample Rug TypeScript command handler.
  */
-@CommandHandler("runJenkinsJobCommandHandler", "a sample Rug TypeScript command handler")
+@CommandHandler("startBuild", "a sample Rug TypeScript command handler")
 @Tags("documentation")
-@Intent("run runJenkinsJobCommandHandler")
-export class runJenkinsJobCommandHandler implements HandleCommand {
+@Intent("run startBuild")
+export class startBuild implements HandleCommand {
 
     @Parameter({
         displayName: "Some Input",
@@ -45,4 +45,4 @@ export class runJenkinsJobCommandHandler implements HandleCommand {
     }
 }
 
-export const runJenkinsJobCommandHandler = new runJenkinsJobCommandHandler();
+export const startBuild = new startBuild();
