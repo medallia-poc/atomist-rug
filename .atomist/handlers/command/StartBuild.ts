@@ -1,5 +1,5 @@
 import { CommandHandler, Intent, Parameter, Tags } from "@atomist/rug/operations/Decorators";
-import { ChannelAddress, DirectedMessage, CommandPlan, HandleCommand, HandlerContext, ResponseMessage } from "@atomist/rug/operations/Handlers";
+import { ChannelAddress, DirectMessage, CommandPlan, HandleCommand, HandlerContext, ResponseMessage } from "@atomist/rug/operations/Handlers";
 import { Pattern } from "@atomist/rug/operations/RugOperation";
 
 /**
