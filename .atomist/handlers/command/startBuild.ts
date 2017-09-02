@@ -7,6 +7,7 @@ import {
     MessageMimeTypes, Response, ResponseMessage,
 } from "@atomist/rug/operations/Handlers";
 import * as mustache from "mustache";
+import { Pattern } from "@atomist/rug/operations/RugOperation";
 
 const buildApi = `/buildWithParameters`;
 
@@ -15,7 +16,7 @@ const buildApi = `/buildWithParameters`;
 @Intent("start Jenkins build")
 class startBuild implements HandleCommand {
 
-    @Parameter({ description: "job url", pattern: Pattern.any })
+    @Parameter({ description: "job url", pattern: Pattern.any, })
     public jobUrl: string;
     
 

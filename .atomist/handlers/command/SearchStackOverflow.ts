@@ -7,7 +7,6 @@ import {
     MessageMimeTypes, Response, ResponseMessage,
 } from "@atomist/rug/operations/Handlers";
 import * as mustache from "mustache";
-import { Pattern } from "@atomist/rug/operations/RugOperation";
 
 const apiSearchUrl =
     `http://api.stackexchange.com/2.2/search/advanced?pagesize=3&order=desc&sort=relevance&site=stackoverflow&q=`;
