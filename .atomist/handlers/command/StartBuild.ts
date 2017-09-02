@@ -32,7 +32,7 @@ export class StartBuild implements HandleCommand {
                 name: "http",
                 parameters: {
                     url: jenkinsUrl + this.jobUrl + postUrl,
-                    method: "get"
+                    method: "post"
                 }
             },
             onSuccess: new DirectedMessage("Woot!", new ChannelAddress("#random")),
