@@ -15,7 +15,7 @@ const buildApi = `/buildWithParameters`;
 @Intent("start Jenkins build")
 class startBuild implements HandleCommand {
 
-    @Parameter({ description: "job url", pattern: "^.*$" })
+    @Parameter({ description: "job url", pattern: Pattern.any })
     public jobUrl: string;
     
 
@@ -31,30 +31,8 @@ class startBuild implements HandleCommand {
                     url: encodeURI(this.jobUrl + buildApi),
                 },
             },
-            onSuccess: {
-                kind: "respond",
-                name: "TriggerBuildResults",
-                parameters: this,
-            },
         });
         return plan;
     }
 }
 export const startBuildCommand = new startBuild();
-
-@ResponseHandler("TriggerBuildResults",
-    "Shows results of triggered jobUrl")
-class jenkinsJobResponder implements HandleResponse<any> {
-
-    @Parameter({ description: "your jobUrl", pattern: "^.*$" })
-    public jobUrl: string;
-
-    public handle( @ParseJson response: Response<any>): CommandPlan {
-        return CommandPlan.ofMessage(
-            new ResponseMessage("Job Triggered.",
-            MessageMimeTypes.PLAIN_TEXT)
-        );
-    }
-}
-
-export let responder = new jenkinsJobResponder();
