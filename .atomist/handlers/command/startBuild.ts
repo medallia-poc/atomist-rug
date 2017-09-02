@@ -29,7 +29,7 @@ export class MyFirstCommandHandler implements HandleCommand {
                 kind: "execute",
                 name: "http",
                 parameters: {
-                    url: jobUrl,
+                    url: this.jobUrl,
                     method: "post",
                     config: {
                         headers: {
@@ -38,8 +38,8 @@ export class MyFirstCommandHandler implements HandleCommand {
                     }
                 }
             },
-            onSuccess: new DirectMessage("Woot!", new ChannelAddress("#random")),
-            onError: new DirectMessage("Un oh", new ChannelAddress("#random"))
+            onSuccess: new ResponseMessage("Woot!"),
+            onError: new ResponseMessage("Un oh")
         });
         return plan;
     }
